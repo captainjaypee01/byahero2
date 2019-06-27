@@ -32,8 +32,15 @@
               <span data-feather="shopping-cart"></span>
               Packages
             </a>
-           
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url()?>admin/transactions">
+              <span data-feather="shopping-cart"></span>
+              Transactions
+            </a>
+          </li>
+
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url()?>admin/testimonials">
               <span data-feather="shopping-cart"></span>

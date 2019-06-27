@@ -150,6 +150,16 @@ class Admin extends CI_Controller {
         $this->load->view('backend/includes/footer');
     }
 
+    public function transactions(){
+        // echo password_hash("secret", PASSWORD_DEFAULT);
+#        $2y$10$3u6fX1hjLRtI/Nzhaj82BOA2A0ZQSQz9yMa0XGPrD3h0o5qKAwhLm
+        // echo password_verify("secret", "$2y$10$3u6fX1hjLRtI/Nzhaj82BOA2A0ZQSQz9yMa0XGPrD3h0o5qKAwhLm");
+        $data["curr_path"] = $this->uri->segment(1);
+        $this->load->view('backend/includes/header', $data);
+        $this->load->view('backend/modules/transaction_view');
+        $this->load->view('backend/includes/footer');
+    }
+
 
     
 }

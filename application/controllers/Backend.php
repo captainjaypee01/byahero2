@@ -739,7 +739,7 @@ class Backend extends CI_Controller {
                                 <td>'. $u->created_at .'</td>
                                 <td>'. ($u->status == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Not Active</span>') .'</td>
                                 <td>  
-                                    <button class="btn btn-info btn-sm btn-update-test-status" href="#"  data-id="'. $u->id.'">' . ($u->status == 1 ? 'Deactivate' : 'Activate') . '</button>
+                                    <button class="btn btn-success btn-sm btn-update-test-status" href="#"  data-id="'. $u->id.'">' . ($u->status == 1 ? 'Deactivate' : 'Activate') . '</button>
                                     <a class="btn btn-info btn-sm btn-view-rate" href="#" data-toggle="modal" data-target="#view-testimonial-modal" data-id="'. $u->id.'"><i class="fa fa-eye"></i></a>
                                 </td>
                             </tr>';

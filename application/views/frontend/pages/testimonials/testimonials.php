@@ -52,7 +52,7 @@ h1 { font-size: 1.5em; margin: 10px; }
 
 .scroll{
   overflow-y: auto;
-  max-height: 650px;
+  max-height: 485px;
 }
 
 </style>
@@ -66,7 +66,7 @@ h1 { font-size: 1.5em; margin: 10px; }
 
   <div class="row">
     <div class="col-md-5 order-md-2 mb-4">  
-      <div class="card border-warning" style = "height: 738px;">
+      <div class="card border-warning" style = "height:485px;">
         <div class ="card-header border-warning"> 
             <p class = "lead text-center" style = "margin-bottom:0px;"> What our customers saying about us</p>
         </div>
