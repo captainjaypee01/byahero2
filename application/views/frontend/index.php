@@ -239,7 +239,7 @@
   </section>
 
     <!-- About -->
-    <section class="page-section" id="team">
+    <section class="page-section" id="travel">
       <div class="container">
           <div class="row">
             <div class="col-lg-12 text-center">

@@ -12,6 +12,7 @@ $(document).ready(function(){
     var url_tour = app_url + "backend/getTours/";
     var url_package = app_url + "backend/getPackages/";
     var url_testimonial = app_url + "backend/getTestimonials/";
+    var url_transaction = app_url + "backend/getTransactions/";
     function load_user_data(page, search = null)
     {
         var url = url_user + page + (search ? "?search="+search : '');
@@ -115,6 +116,31 @@ $(document).ready(function(){
         });
     }
 
+    function load_transaction_data(page, search = null)
+    {
+        var url = url_transaction + page + (search ? "?search="+search : '');
+        $.ajax({
+            url: url,
+            method:"GET",
+            dataType:"json",
+            success:function(response){
+                if(response.success){
+                    $('#transaction_table').html(response.userTable);
+                    $('#pagination_link_transaction').html(response.pagination_link);
+                }
+                else{
+                    $('#transaction_table').html(response.empty_message);
+                }
+
+                console.log(response);
+                console.table(response);
+            },
+            error:function(response){
+                console.log(response);
+            }
+        });
+    }
+
 
     $("#frm-user-update").submit(function(e){
         e.preventDefault();
@@ -163,12 +189,12 @@ $(document).ready(function(){
 
                     reader.onload = function(e) {
                         console.log(e);
-                        // $('#blah').attr('src', e.target.result);
-                        // $("#blah").hide();
+                        $('#imagePayment').attr('src', e.target.result);
+                        $("#blah").hide();
                         $("#imagePayment").show();
-                        $("#imagePayment").css('background-image','url('+ e.target.result + ')'); 
-                        $("#imagePayment").css('height',"350px");
-                        $("#imagePayment").css('width',"350px");
+                        // $("#imagePayment").css('background-image','url('+ e.target.result + ')'); 
+                        // $("#imagePayment").css('height',"350px");
+                        // $("#imagePayment").css('width',"350px");
                     }
                     reader.readAsDataURL(input.files[0]);
                 };
@@ -483,6 +509,50 @@ $(document).ready(function(){
         $("#div-child-pax-"+remove_no).remove();
     });
     
+    // Transactions
+    $(document).on("click",".btn-view-transaction", function(event){
+        event.preventDefault();
+        var proof_path = $(this).data("path"); 
+        $('#proofImage').attr('src', app_url + "uploads/payments/" + proof_path);
+        $("#blah").show();
+    });
+    
+    $(document).on("click",".btn-update-trans-status", function(event){
+        event.preventDefault();
+        var transaction_id = $(this).data("id"); 
+        var paymetn_status = $(this).data("status"); 
+        $.ajax({
+            url: app_url + "backend/updateTransactionStatus",
+            type : "POST",
+            data : { transaction_id : transaction_id, status : paymetn_status},
+            dataType : "json",
+            success: function(response){
+                console.log(response); 
+                if(response.success){
+                    notify(response.message, "success");
+                    setTimeout(() => {
+                        window.location.reload(); 
+                    }, 1000);
+                }
+                else{
+                    notify(response.message, "error"); 
+                }
+                
+            },
+            error: function(response){
+                console.log(response);
+            }
+
+        }); 
+    });
+
+    // Pagination Function Purposes
+    $(document).on("click", "#pagination_link_transaction .pagination li a", function(event){
+        event.preventDefault();
+        page = $(this).data("ci-pagination-page");
+        load_transaction_data(page);
+    });
+
     $(document).on("click", "#pagination_link_testimonial .pagination li a", function(event){
         event.preventDefault();
         page = $(this).data("ci-pagination-page");
@@ -503,38 +573,39 @@ $(document).ready(function(){
 
     $(document).on("click", "#pagination_link_user .pagination li a", function(event){
         event.preventDefault();
-        page = $(this).data("ci-pagination-page");
-        load_user_data(page);
+        page = $(this).data("ci-pagination-page"); 
     });
 
     $(document).on("keyup", "#txt-search-user", function(event){
         var s = $(this).val();
-        load_user_data(page, s);
-        console.log(s);
+        load_user_data(page, s); 
     });
 
     $(document).on("keyup", "#txt-search-tour", function(event){
         var s = $(this).val();
-        load_tour_data(page, s);
-        console.log(s);
+        load_tour_data(page, s); 
     });
 
     $(document).on("keyup", "#txt-search-package", function(event){
         var s = $(this).val();
-        load_package_data(page, s);
-        console.log(s);
+        load_package_data(page, s); 
     });
 
     $(document).on("keyup", "#txt-search-testimonial", function(event){
         var s = $(this).val();
-        load_user_data(page, s);
-        console.log(s);
+        load_user_data(page, s); 
+    });
+
+    $(document).on("keyup", "#txt-search-transaction", function(event){
+        var s = $(this).val();
+        load_transaction_data(page, s); 
     });
 
     load_package_data(page);
     load_tour_data(page);
     load_user_data(page);
     load_testimonial_data(page);
+    load_transaction_data(page);
 
     function notify(title, type){
         swal({

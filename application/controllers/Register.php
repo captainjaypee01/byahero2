@@ -38,6 +38,7 @@ class Register extends CI_Controller {
                 "first_name" => $this->_post("first_name"),
                 "last_name" => $this->_post("last_name"),
                 "email" => $this->_post("email"),
+                "username" => $this->_post("username"),
                 "password" => password_hash( $this->_post("password"), PASSWORD_DEFAULT),
                 "birthday" => $this->_post("birthday"),
                 "marital_status" => $this->_post("marital_status"),

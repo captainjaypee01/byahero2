@@ -92,7 +92,7 @@ class Booking extends CI_Controller {
             $response['message'] = "Payment Uploaded";  
         }
 
-
+        $response['post'] = $_POST;
         echo json_encode($response);
         
 

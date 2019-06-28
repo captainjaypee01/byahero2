@@ -739,8 +739,8 @@ class Backend extends CI_Controller {
                                 <td>'. $u->created_at .'</td>
                                 <td>'. ($u->status == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Not Active</span>') .'</td>
                                 <td>  
+                                <a class="btn btn-info btn-sm btn-view-rate" href="#" data-toggle="modal" data-target="#view-testimonial-modal" data-id="'. $u->id.'"><i class="fa fa-eye"></i></a>
                                     <button class="btn btn-success btn-sm btn-update-test-status" href="#"  data-id="'. $u->id.'">' . ($u->status == 1 ? 'Deactivate' : 'Activate') . '</button>
-                                    <a class="btn btn-info btn-sm btn-view-rate" href="#" data-toggle="modal" data-target="#view-testimonial-modal" data-id="'. $u->id.'"><i class="fa fa-eye"></i></a>
                                 </td>
                             </tr>';
                 }
@@ -792,6 +792,159 @@ class Backend extends CI_Controller {
 
         echo json_encode($response);
     }
+
+    // Start Transactions
+    public function getTransactions(){
+        $this->load->library("pagination");
+        $search = $this->input->get("search");
+        $columns = array(
+            "first_name" => $search, 
+            "last_name" => $search, 
+            "email" => $search, 
+            "contact" => $search, 
+        );
+        
+        $response['test'] = $user = $this->user->fetch_like("transactions", $columns, $search, "created_at"); 
+
+        $totalUsers = 0;
+        if($search != ""){
+            
+            $user = $this->user->fetch_like("transactions", $columns, $search, "created_at");
+            if($user)
+                $totalUsers = count($this->user->fetch_like("transactions", $columns, $search, "created_at")); 
+        }
+        else
+            $totalUsers = count($this->user->fetch("transactions"));
+         
+        $config = array();
+        $config["base_url"] = "";
+        $config["total_rows"] = $totalUsers;
+        $config["per_page"] = 10;
+        $config["uri_segment"] = 3;
+        $config["use_page_numbers"] = TRUE;
+        $config["full_tag_open"] = '<ul class="pagination justify-content-center">';
+        $config["full_tag_close"] = '</ul>';
+        $config["first_tag_open"] = '<li class="page-item"><a class="page-link" href="#">';
+        $config["first_tag_close"] = '</a></li>';
+        $config["last_tag_open"] = '<li class="page-item">';
+        $config["last_tag_close"] = '</li>';
+        $config['next_link'] = '&gt;';
+        $config["next_tag_open"] = '<li class="page-item">';
+        $config["next_tag_close"] = '</li>';
+        $config["prev_link"] = "&lt;";
+        $config["prev_tag_open"] = '<li class="page-item">';
+        $config["prev_tag_close"] = "</li>";
+        $config["cur_tag_open"] = "<li class='page-item active'><a class='page-link' href='#'>";
+        $config["cur_tag_close"] = "</a></li>";
+        $config["num_tag_open"] = "<li class='page-item'>";
+        $config["num_tag_close"] = "</li>";
+        $config["num_links"] = 1;
+        $config['attributes'] = array('class' => 'page-link');
+        $this->pagination->initialize($config);
+        $page = $this->uri->segment(3);
+        $response["page"] = $page;
+        $start = ($page - 1) * $config["per_page"]; 
+
+        // check if there is a searching 
+        $columns = array(
+            "users.first_name" => $search, 
+            "users.last_name" => $search, 
+            "tours.name" => $search,
+            "packages.name" => $search,
+            "transactions.travel_date" => $search, 
+        );
+        if($search != ""){ 
+            $users = $this->admin->fetchPaginationTransaction("transactions", $columns, $search, "created_at", $config["per_page"], $start);
+        }
+        else
+            $users = $this->admin->fetchPaginationTransaction("transactions", NULL, NULL, "created_at", $config["per_page"], $start);
+
+        // initialize to check if there are data 
+        $response["success"] = false;
+        $response["users"] = $users;
+        
+        if($users){
+            if(count($users) > 0){
+                $html = '<table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Customer Name</th>
+                        <th>Package Name</th>
+                        <th>Travel Date</th>  
+                        <th>Email</th>
+                        <th>Activity</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>';
+                $ctr = 1;
+                foreach($users as $u){
+                    $status = "";
+                    if($u->upload_path == "" && $u->status == NULL)
+                        $status = '<span class="badge badge-danger">No Upload</span>'; 
+                    elseif($u->payment_status == 0)
+                        $status = '<span class="badge badge-warning">For Review</span>';
+                    elseif($u->payment_status == 1)
+                        $status = '<span class="badge badge-warning">Payment Approved</span>';
+                    elseif($u->payment_status == 2)
+                        $status = '<span class="badge badge-danger">Payment Rejected</span>';
+                    elseif($u->payment_status == 1 && $u->is_review == 1)
+                        $status = '<span class="badge badge-warning">Payment Approved</span>';
+
+                    $html .= '<tr>
+                                <td>'. $ctr++ .'</td>
+                                <td class="text-capitalize">'. $u->first_name . ' '. $u->last_name .'</td>
+                                <td class="text-capitalize">'. $u->package_name .'</td>
+                                <td>'. date("Y-m-d", strtotime($u->travel_date)) .'</td> 
+                                <td class="">'. $u->email .'</td> 
+                                <td>'. $status .'</td>
+                                <td>  
+                                    <a class="btn btn-info btn-sm btn-view-transaction" href="#" data-toggle="modal" data-target="#approve-payment-modal" data-id="'. $u->id.'" data-path="'.$u->upload_path.'"><i class="fa fa-eye"></i></a>
+                                    <button class="btn btn-success btn-sm btn-update-trans-status" href="#" data-status="1" data-id="'. $u->id.'"> <i class="fa fa-check"></i></button>
+                                    <button class="btn btn-danger btn-sm btn-update-trans-status" href="#" data-status="2" data-id="'. $u->id.'"> <i class="fa fa-times"></i></button>
+                                </td>
+                            </tr>';
+                }
+
+                $response["success"] = TRUE;
+                $response["userTable"] = $html;
+                $response["pagination_link"] = $this->pagination->create_links();
+            }
+        }
+        else{
+            $html = '<div class="alert alert-dark" role="alert">
+                        No Available Data
+                    </div>';
+            $response["empty_message"] = $html;
+        }
+
+
+        echo json_encode($response);
+    }
+
+    public function updateTransactionStatus(){
+        $where_data = array("id" => $this->_post("transaction_id"));
+        $testimonial = $this->admin->fetch("transactions", $where_data );
+        if($testimonial){
+            if(sizeof($testimonial) > 0){
+                $testimonial = $testimonial[0];
+                if($this->_post("status") == 1)
+                    $update_status_data = array("payment_status" => $this->_post("status"), "is_rejected" => 1);
+                else
+                    $update_status_data = array("is_rejected" => 1, "payment_status" => 0);
+                $this->admin->update("transactions", $update_status_data,$where_data);
+                $response["success"] = TRUE;
+                $response["message"] = ($update_status_data["payment_status"] == 1 ? "Successfully Approved" : "Successfully Rejected");
+                $response["data"] = $testimonial;
+            } 
+        }
+        if(!$response["success"])
+            $response["message"] = "An errorr occurred";
+
+        echo json_encode($response);
+    }
+
 
     public function createAudit(){
         // $data = array(

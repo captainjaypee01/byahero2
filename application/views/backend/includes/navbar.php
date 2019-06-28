@@ -14,7 +14,7 @@
                 <a class="text-capitalize dropdown-item" href="<?= base_url() ?>">Main Page</a> 
                 <a class="text-capitalize dropdown-item" href="<?= base_url().'profile' ?>">Profile</a> 
 
-                <a class="text-capitalize dropdown-item" href="" id="btn-logout">Logout</a>
+                <a class="dropdown-item" href="<?= base_url()?>logout">Log out</a>
 
                 </a>
             </div>
@@ -49,7 +49,7 @@
                 </a>
             </li> 
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="<?= base_url()?>logout">Sign out</a>
+                <a class="nav-link" href="<?= base_url()?>logout">Log out</a>
             </li>
         </ul>
     </div>

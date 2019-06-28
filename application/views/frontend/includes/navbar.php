@@ -34,8 +34,8 @@
                     <?php if( $this->session->role == "admin" ): ?>
                         <a class="text-capitalize dropdown-item" href="<?= base_url().'admin'?>">Administrator</a>
                     <?php endif; ?>
-                    <a class="text-capitalize dropdown-item" href="<?= base_url() ?>frontend/profile">Account</a> 
-                    <a class="text-capitalize dropdown-item" href="" id="btn-logout">Logout</a> 
+                    <a class="text-capitalize dropdown-item" href="<?= base_url() ?>profile">Account</a> 
+                    <a class="text-capitalize dropdown-item" href="<?= base_url() ?>logout" id="btn-logout">Logout</a> 
                     </a>
                 </div>
             </li>

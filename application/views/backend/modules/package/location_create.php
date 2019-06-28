@@ -61,7 +61,7 @@
         </div>
         <div class = "col-md-6">
             <p class = "mb-2"> Preview Uploaded Picture </p>
-            <div id="imagePayment" style="width: 100%;"></div>
+              <img id="imagePayment" src="<?= base_url()?>img/logo.png" class="card-img-top" alt="...">
 
         </div>
 

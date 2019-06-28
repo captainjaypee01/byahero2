@@ -7,7 +7,7 @@
     <div class = "row">
         <div class = col-md-7>
             <form class="form-inline">
-                <input class="form-control mr-md-2" id="txt-search-tour" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control mr-md-2" id="txt-search-transaction" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-3" type="submit">Search</button>  
             </form>
         </div>
@@ -16,77 +16,11 @@
         </div> -->
     </div>
     <section>
-
-    <div class="table-responsive">
-            <table class = "table table-striped table-sm"> 
-                <thead> 
-                    <tr> 
-                        <th>Customer Name</th>   
-                        <th>Package Name</th>   
-                        <th>Date </th>
-                        <th>Contact Number</th> 
-                        <th>Email Address</th> 
-                        <th>Activity</th> 
-                        <th>Action</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td> Maria Clara</td>
-                        <td> Mactan Island Hopping (Exclusive)</td>
-                        <td> 06/10/19</td>
-                        <td> 09148531521</td>
-                        <td> mclara@mail.com</td>
-                        <td> Approve payment</td>
-                        <td> <button class = "btn btn-primary btn-sm" data-toggle="modal" data-target="#approve-payment-modal"> <i class = "fa fa-eye" style = "color:white;"> </i>  </button>
-                             <a class = "btn btn-success btn-sm"> <i class = "fa fa-check" style = "color:white;"> </i>  </a>
-                                
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td> Maria Clara</td>
-                        <td> Mactan Island Hopping (Exclusive)</td>
-                        <td> 06/10/19</td>
-                        <td> 09148531521</td>
-                        <td> mclara@mail.com</td>
-                        <td> Past due payment</td>
-                        <td> <button class = "btn btn-primary btn-sm" data-toggle="modal" data-target="#approve-payment-modal"> <i class = "fa fa-eye" style = "color:white;"> </i>  </button>
-                             <a class = "btn btn-danger btn-sm"> <i class = "fa fa-times fa-lg" style = "color:white;"> </i>  </a>
-                                
-                        </td>
-                    <tr>
-                        <td> Maria Clara</td>
-                        <td> Mactan Island Hopping (Exclusive)</td>
-                        <td> 06/10/19</td>
-                        <td> 09148531521</td>
-                        <td> mclara@mail.com</td>
-                        <td> Send review link</td>
-                        <td> <button class = "btn btn-primary btn-sm" data-toggle="modal" data-target="#approve-payment-modal"> <i class = "fa fa-eye" style = "color:white;"> </i>  </button>
-                             <a class = "btn btn-warning btn-sm"> <i class = "fa fa-bell" style = "color:white;"> </i>  </a>
-                                
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td> Maria Clara</td>
-                        <td> Mactan Island Hopping (Exclusive)</td>
-                        <td> 06/10/19</td>
-                        <td> 09148531521</td>
-                        <td> mclara@mail.com</td>
-                        <td> Done</td>
-                        <td> <button class = "btn btn-primary btn-sm" data-toggle="modal" data-target="#approve-payment-modal"> <i class = "fa fa-eye" style = "color:white;"> </i>  </button>
-                             <!-- <a class = "btn btn-warning btn-sm"> <i class = "fa fa-bell" style = "color:white;"> </i>  </a> -->
-                                
-                        </td>
-                    </tr>
-
-                <tbody>
-
-            </table>
+ 
+        <div class="table-responsive" id="transaction_table">
         
         </div>
+        
         
         <nav aria-label="Page navigation example" id="pagination_link">
 
@@ -105,27 +39,11 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="tour_id" id="tour-id">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <div class="form-group">
-                                        <label for="">Package Name</label>
-                                        <p> Mactan Island Hopping (Exclusive) </p>
-                                    </div>
-                                </div> 
-                                <div class="mb-3">
-                                    <div class="form-group">
-                                        <label for="description">Tour</label>
-                                        <p> Cebu Tour </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="container"> 
                         <div class="row">
                             <div class="col">
                                 <h5>Uploaded Image</h5>
-                                <img src="<?= base_url()?>img/feedback.jpg" class="card-img-top" alt="...">
+                                <img id="proofImage" src="<?= base_url()?>img/feedback.jpg" class="card-img-top" alt="...">
                             </div>
                         </div>
                         <div id="div-package-pax">

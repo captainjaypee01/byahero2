@@ -93,6 +93,26 @@ class Admin_model extends CI_Model {
         $query = $this->db->get($table);
         return ($query->num_rows() > 0) ? $query->result() : false;
     }
+
+    
+    function fetchPaginationTransaction($table, $columns = NULL, $like = NULL, $order = NULL, $limit = NULL, $start = NULL){  
+        $this->db->select( "packages.name as package_name, tours.name as tour_name, locations.name as location_name, locations.region, tours.name as tour_name, users.*, ". $table.".*, ");
+        $this->db->join("tours", $table.".tours_id = tours.id");
+        $this->db->join("packages", $table.".packages_id = packages.id");
+        $this->db->join("users", $table.".user_id = users.id");
+        $this->db->join("locations", "tours.location_id = locations.id");
+        if($like !== NULL && $like != ""){
+            $this->db->or_like($columns);
+        }
+        if($order !== NULL){
+            $this->db->order_by($table.'.'.$order, 'asc');
+        }
+        if($limit !== NULL && $start !== NULL){
+            $this->db->limit($limit, $start);
+        }
+        $query = $this->db->get($table);
+        return ($query->num_rows() > 0) ? $query->result() : false;
+    }
     
 
 

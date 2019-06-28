@@ -16,7 +16,10 @@
             <a class="nav-link js-scroll-trigger" href="#about">About Us</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#team">Travel Packages</a>
+            <a class="nav-link js-scroll-trigger" href="#team">Team</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#travel">Travel Packages</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#contactus">Contact Us</a>
@@ -45,7 +48,7 @@
  
                 <a class="text-capitalize dropdown-item" href="<?= base_url().'profile' ?>">Profile</a> 
  
-                <a class="text-capitalize dropdown-item" href="" id="btn-logout">Logout</a>
+                <a class="text-capitalize dropdown-item" href="<?= base_url() ?>logout" id="btn-logout">Logout</a>
 
                 </a>
               </div>

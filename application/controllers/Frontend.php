@@ -135,6 +135,7 @@ class Frontend extends CI_Controller {
         $user = $this->session->user;
         $transactions = $this->user->fetchTransactionTour(array("user_id" => $user->id));
         $paymentTransactions = $this->user->fetchTransactionTourPayment(array("user_id" => $user->id));
+        // $this->debug($paymentTransactions);
         // $this->debug($transactions);
         // $transactions = $this->user->fetch("transactions", array("user_id" => $this->session->user->id ));
         // $tours = array();

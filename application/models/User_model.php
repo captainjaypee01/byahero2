@@ -65,7 +65,7 @@ class User_model extends CI_Model {
         $this->db->from("transactions");
         $this->db->join("tours","transactions.tours_id = tours.id");
         $this->db->join("packages","transactions.packages_id = packages.id");
-        $this->db->where("transactions.user_id" , $where["user_id"]); 
+        $this->db->where("transactions.user_id" , $where["user_id"]);  
         
         $query = $this->db->get();
         return ($query->num_rows() > 0) ? $query->result() : false;
@@ -77,6 +77,7 @@ class User_model extends CI_Model {
         $this->db->join("tours","transactions.tours_id = tours.id");
         $this->db->join("packages","transactions.packages_id = packages.id");
         $this->db->where("transactions.user_id" , $where["user_id"]); 
+        $this->db->where("transactions.upload_path IS NULL"); 
         $this->db->where("transactions.payment_status" , 0); 
         
         $query = $this->db->get();

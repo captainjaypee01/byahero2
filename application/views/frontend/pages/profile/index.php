@@ -300,11 +300,13 @@
                                                                     <td>
                                                                         <?php
                                                                         if($t->upload_path == "" || $t->upload_path == NULL)// && $t->payment_status == 0 && $t->is_review == 0)
-                                                                            echo '<span class="badge badge-info">For Upload</span>';
-                                                                        else if($t->upload_path != "" || $t->upload_path != NULL)// == 1 && $t->is_review == 0)
-                                                                            echo '<span class="badge badge-warning">For Proofing</span>';
-                                                                        elseif($t->payment_status == 1 && $t->is_review == 0)
+                                                                            echo '<span class="badge badge-info">For Upload</span>'; 
+                                                                        elseif($t->payment_status == 0 && $t->is_review == 0)
                                                                             echo '<span class="badge badge-warning">For Review</span>';
+                                                                        elseif($t->payment_status == 2 && $t->is_review == 0)
+                                                                            echo '<span class="badge badge-danger">Rejected</span>';
+                                                                        elseif($t->payment_status == 1 && $t->is_review == 0)
+                                                                            echo '<span class="badge badge-success">Do Feedback</span>';
                                                                         elseif($t->payment_status == 1 && $t->is_review == 1)
                                                                             echo '<span class="badge badge-success">Done</span>';
                                                                         ?>
@@ -312,9 +314,11 @@
                                                                     <td>
                                                                         <?php
                                                                         if($t->upload_path == "" || $t->upload_path == NULL)// && $t->payment_status == 0 && $t->is_review == 0)
-                                                                            echo ' <a class = "btn btn-success btn-sm" href="'. base_url('profile#profile'). '" style = "color:white;"a> <i class = "fa fa-upload" style = "color:white;"> </i>  </a>';
-                                                                        else if($t->upload_path != "" || $t->upload_path != NULL)// == 1 && $t->is_review == 0)
-                                                                            echo '<span class="badge badge-warning">Processing</span>';
+                                                                            echo ' <a class = "btn btn-success btn-sm" href="'. base_url('profile#profile'). '" style = "color:white;"a> <i class = "fa fa-upload" style = "color:white;"> </i>  </a>'; 
+                                                                        elseif($t->payment_status == 0 && $t->is_review == 0)
+                                                                            echo '<span class="badge badge-warning">For Review</span>';
+                                                                        elseif($t->payment_status == 2 && $t->is_review == 0)
+                                                                        echo ' <a class = "btn btn-success btn-sm" href="'. base_url('profile#profile'). '" style = "color:white;"a> <i class = "fa fa-upload" style = "color:white;"> </i>  </a>'; 
                                                                         elseif($t->payment_status == 1 && $t->is_review == 0)
                                                                             echo ' <a class = "btn btn-warning btn-sm" style = "color:white;"a> <i class = "fa fa-comment" style = "color:white;"> </i> Rate </a>';
                                                                         // yung ginawa ko na user_after na view ayun yung kapag tapos na sya sa tour then ratings connected here kapag for review activity
