@@ -349,6 +349,10 @@ class Backend extends CI_Controller {
         $start = ($page - 1) * $config["per_page"]; 
 
         // check if there is a searching 
+        $columns = array(
+            "tours.name" => $search, 
+            "tours.description" => $search, 
+        );
         if($search != ""){ 
             $users = $this->admin->fetchPaginationTourLocation("tours", $columns, $search, "created_at", $config["per_page"], $start);
         }

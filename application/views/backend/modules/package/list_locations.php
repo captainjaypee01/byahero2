@@ -27,32 +27,56 @@
     </div>
     <section>
 
-        <div class="table-responsive">
-            <table class = "table table-striped table-sm"> 
-                <thead> 
-                    <tr> 
-                        <th>Location Name</th>   
-                        <th>Region</th>   
-                        <th> # of tours created </th>
-                        <th>Actions</th> 
-                    </tr>
-                </thead>
+    <?php 
+        $noDataLuzon = true;
+        if($luzon){
+            if(sizeof($luzon) > 0){
+              $noDataLuzon = false;
+                  ?>
+                  <div class="table-responsive">
+                      <table class = "table table-striped table-sm"> 
+                          <thead> 
+                              <tr> 
+                                  <th>Location Name</th>   
+                                  <th>Region</th>   
+                                  <th> # of tours created </th> 
+                              </tr>
+                          </thead>
 
-                <tbody>
-                    <tr>
-                        <td> Baguio</td>
-                        <td> Luzon</td>
-                        <td> 13</td>
-                        <td> <a class = "btn btn-primary btn-sm"> <i class = "fa fa-eye" style = "color:white;"> </i>  </a>
-                                <a class = "btn btn-warning btn-sm"> <i class = "fa fa-edit" style = "color:white;"> </i>  </a>
-                                <a class = "btn btn-danger btn-sm"> <i class = "fa fa-trash-o" style = "color:white;"> </i>  </a>
-                        </td>
-                    </tr>
-                <tbody>
+                          <tbody>
+                            <?php
+                              foreach($luzon as $l){
+                                $totalTour = 0;
+                                $tours = $this->admin->fetch("tours", array("location_id" => $l->id));
+                                if($tours){
+                                  $totalTour = sizeof($tours);
+                                }
+                                ?>
+                              <tr>
+                                  <td class="text-capitalize"><?= $l->name ?></td>
+                                  <td class="text-capitalize"><?= $l->region ?></td>
+                                  <td><?= $totalTour ?></td> 
+                              </tr>
+                              <?php } ?>
+                          <tbody>
 
-            </table>
+                      </table>
+                  
+                  </div>
+                  <?php
+              ?>
+              <?php
+            } 
+        }
+        if($noDataLuzon){
+          ?>
+          <div class="alert alert-warning">
+            No Data Available
+          </div>
+          <?php
+        }
         
-        </div>
+        ?>
         
         <nav aria-label="Page navigation example" id="pagination_link">
 
@@ -86,32 +110,56 @@
     
     <section>
 
-        <div class="table-responsive">
-            <table class = "table table-striped table-sm"> 
-                <thead> 
-                    <tr> 
-                        <th>Location Name</th>   
-                        <th>Region</th>   
-                        <th> # of tours created </th>
-                        <th>Actions</th> 
-                    </tr>
-                </thead>
+    <?php 
+        $noDataLuzon = true;
+        if($visayas){
+            if(sizeof($visayas) > 0){
+              $noDataLuzon = false;
+                  ?>
+                  <div class="table-responsive">
+                      <table class = "table table-striped table-sm"> 
+                          <thead> 
+                              <tr> 
+                                  <th>Location Name</th>   
+                                  <th>Region</th>   
+                                  <th> # of tours created </th> 
+                              </tr>
+                          </thead>
 
-                <tbody>
-                    <tr>
-                        <td> Cebu</td>
-                        <td> Visayas</td>
-                        <td> 13</td>
-                        <td> <a class = "btn btn-primary btn-sm"> <i class = "fa fa-eye" style = "color:white;"> </i>  </a>
-                                <a class = "btn btn-warning btn-sm"> <i class = "fa fa-edit" style = "color:white;"> </i>  </a>
-                                <a class = "btn btn-danger btn-sm"> <i class = "fa fa-trash-o" style = "color:white;"> </i>  </a>
-                        </td>
-                    </tr>
-                <tbody>
+                          <tbody>
+                            <?php
+                              foreach($visayas as $l){
+                                $totalTour = 0;
+                                $tours = $this->admin->fetch("tours", array("location_id" => $l->id));
+                                if($tours){
+                                  $totalTour = sizeof($tours);
+                                }
+                                ?>
+                              <tr>
+                                  <td class="text-capitalize"><?= $l->name ?></td>
+                                  <td class="text-capitalize"><?= $l->region ?></td>
+                                  <td><?= $totalTour ?></td> 
+                              </tr>
+                              <?php } ?>
+                          <tbody>
 
-            </table>
+                      </table>
+                  
+                  </div>
+                  <?php
+              ?>
+              <?php
+            } 
+        }
+        if($noDataLuzon){
+          ?>
+          <div class="alert alert-warning">
+            No Data Available
+          </div>
+          <?php
+        }
         
-        </div>
+        ?>
         
         <nav aria-label="Page navigation example" id="pagination_link">
 
@@ -147,32 +195,56 @@
     
     <section>
 
-        <div class="table-responsive">
-            <table class = "table table-striped table-sm"> 
-                <thead> 
-                    <tr> 
-                        <th>Location Name</th>   
-                        <th>Region</th>   
-                        <th> # of tours created </th>
-                        <th>Actions</th> 
-                    </tr>
-                </thead>
+    <?php 
+        $noDataLuzon = true;
+        if($mindanao){
+            if(sizeof($mindanao) > 0){
+              $noDataLuzon = false;
+                  ?>
+                  <div class="table-responsive">
+                      <table class = "table table-striped table-sm"> 
+                          <thead> 
+                              <tr> 
+                                  <th>Location Name</th>   
+                                  <th>Region</th>   
+                                  <th> # of tours created </th> 
+                              </tr>
+                          </thead>
 
-                <tbody>
-                    <tr>
-                        <td> Cebu</td>
-                        <td> Visayas</td>
-                        <td> 13</td>
-                        <td> <a class = "btn btn-primary btn-sm"> <i class = "fa fa-eye" style = "color:white;"> </i>  </a>
-                                <a class = "btn btn-warning btn-sm"> <i class = "fa fa-edit" style = "color:white;"> </i>  </a>
-                                <a class = "btn btn-danger btn-sm"> <i class = "fa fa-trash-o" style = "color:white;"> </i>  </a>
-                        </td>
-                    </tr>
-                <tbody>
+                          <tbody>
+                            <?php
+                              foreach($mindanao as $l){
+                                $totalTour = 0;
+                                $tours = $this->admin->fetch("tours", array("location_id" => $l->id));
+                                if($tours){
+                                  $totalTour = sizeof($tours);
+                                }
+                                ?>
+                              <tr>
+                                  <td class="text-capitalize"><?= $l->name ?></td>
+                                  <td class="text-capitalize"><?= $l->region ?></td>
+                                  <td><?= $totalTour ?></td> 
+                              </tr>
+                              <?php } ?>
+                          <tbody>
 
-            </table>
+                      </table>
+                  
+                  </div>
+                  <?php 
+              ?>
+              <?php
+            } 
+        }
+        if($noDataLuzon){
+          ?>
+          <div class="alert alert-warning">
+            No Data Available
+          </div>
+          <?php
+        }
         
-        </div>
+        ?>
         
         <nav aria-label="Page navigation example" id="pagination_link">
 
